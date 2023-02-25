@@ -36,20 +36,22 @@ type SnipcartItem struct {
 }
 
 type SnipcartOrder struct {
-	Token       string         `json:"token"`
-	Invoice     string         `json:"invoiceNumber"`
-	Status      string         `json:"status"`
-	TotalWeight float64        `json:"totalWeight"`
-	Email       string         `json:"email"`
-	Name        string         `json:"shippingAddressName"`
-	Address1    string         `json:"shippingAddressAddress1"`
-	Address2    string         `json:"shippingAddressAddress2"`
-	City        string         `json:"shippingAddressCity"`
-	Province    string         `json:"shippingAddressProvince"`
-	Country     string         `json:"shippingAddressCountry"`
-	PostalCode  string         `json:"shippingAddressPostalCode"`
-	Phone       string         `json:"shippingAddressPhone"`
-	Items       []SnipcartItem `json:"items"`
+	Token          string         `json:"token"`
+	Invoice        string         `json:"invoiceNumber"`
+	Status         string         `json:"status"`
+	TotalWeight    float64        `json:"totalWeight"`
+	Email          string         `json:"email"`
+	Name           string         `json:"shippingAddressName"`
+	Address1       string         `json:"shippingAddressAddress1"`
+	Address2       string         `json:"shippingAddressAddress2"`
+	City           string         `json:"shippingAddressCity"`
+	Province       string         `json:"shippingAddressProvince"`
+	Country        string         `json:"shippingAddressCountry"`
+	PostalCode     string         `json:"shippingAddressPostalCode"`
+	Phone          string         `json:"shippingAddressPhone"`
+	TrackingNumber string         `json:"trackingNumber"`
+	TrackingUrl    string         `json:"trackingUrl"`
+	Items          []SnipcartItem `json:"items"`
 }
 
 type SnipcartOrders struct {
