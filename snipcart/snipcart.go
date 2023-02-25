@@ -3,8 +3,10 @@ package snipcart
 import (
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
-	"strconv"
+
+	helper "github.com/debyltech/go-helpers"
 )
 
 const (
@@ -62,24 +64,8 @@ func NewSnipcartProvider(snipcartApiKey string) SnipcartProvider {
 	}
 }
 
-func (s *SnipcartProvider) GetOrders() (*SnipcartOrders, error) {
-	return s.GetOrdersByStatus("")
-}
-
-func (s *SnipcartProvider) GetOrdersByStatus(status OrderStatus) (*SnipcartOrders, error) {
-	if s.Limit == 0 {
-		s.Limit = defaultLimit
-	}
-
-	queries := []URLQuery{
-		{Key: "limit", Value: strconv.Itoa(s.Limit)},
-	}
-
-	if status != "" {
-		queries = append(queries, URLQuery{Key: "status", Value: string(status)})
-	}
-
-	response, err := JSONGet(orderUri, "Basic", s.AuthBase64, queries)
+func (s *SnipcartProvider) GetOrders(queries map[string]string) (*SnipcartOrders, error) {
+	response, err := helper.Get(orderUri, "Basic", s.AuthBase64, queries)
 	if err != nil {
 		return nil, err
 	}
@@ -96,4 +82,12 @@ func (s *SnipcartProvider) GetOrdersByStatus(status OrderStatus) (*SnipcartOrder
 	}
 
 	return &orders, nil
+}
+
+func (s *SnipcartProvider) GetOrdersByStatus(status OrderStatus) (*SnipcartOrders, error) {
+	if status == "" {
+		return nil, errors.New("status is not set")
+	}
+
+	return s.GetOrders(map[string]string{"status": string(status)})
 }
