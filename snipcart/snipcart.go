@@ -7,6 +7,7 @@ import (
 	"fmt"
 
 	helper "github.com/debyltech/go-helpers"
+	"github.com/skip2/go-qrcode"
 )
 
 const (
@@ -92,4 +93,13 @@ func (s *SnipcartProvider) GetOrdersByStatus(status OrderStatus) (*SnipcartOrder
 	}
 
 	return s.GetOrders(map[string]string{"status": string(status)})
+}
+
+func (o *SnipcartOrder) TokenPNGBase64() (string, error) {
+	img, err := qrcode.Encode(o.Token, qrcode.Medium, 128)
+	if err != nil {
+		return "", err
+	}
+
+	return base64.StdEncoding.EncodeToString(img), nil
 }
