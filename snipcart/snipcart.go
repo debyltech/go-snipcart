@@ -101,5 +101,5 @@ func (o *SnipcartOrder) TokenPNGBase64() (string, error) {
 		return "", err
 	}
 
-	return base64.StdEncoding.EncodeToString(img), nil
+	return "order:" + base64.StdEncoding.EncodeToString(img), nil
 }
