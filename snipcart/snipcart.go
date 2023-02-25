@@ -96,7 +96,7 @@ func (s *SnipcartProvider) GetOrdersByStatus(status OrderStatus) (*SnipcartOrder
 }
 
 func (o *SnipcartOrder) TokenPNGBase64() (string, error) {
-	img, err := qrcode.Encode(o.Token, qrcode.Medium, 128)
+	img, err := qrcode.Encode("order:"+o.Token, qrcode.Medium, 128)
 	if err != nil {
 		return "", err
 	}
