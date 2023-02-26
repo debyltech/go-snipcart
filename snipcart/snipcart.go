@@ -77,7 +77,7 @@ func (s *SnipcartProvider) GetOrder(token string) (*SnipcartOrder, error) {
 	if err != nil {
 		return nil, err
 	}
-	if response.Status != "200 OK" {
+	if response.StatusCode < 200 && response.StatusCode >= 300 {
 		return nil, fmt.Errorf("unexpected response received: %s", response.Status)
 	}
 
@@ -97,7 +97,7 @@ func (s *SnipcartProvider) GetOrders(queries map[string]string) (*SnipcartOrders
 	if err != nil {
 		return nil, err
 	}
-	if response.Status != "200 OK" {
+	if response.StatusCode < 200 && response.StatusCode >= 300 {
 		return nil, fmt.Errorf("unexpected response received: %s", response.Status)
 	}
 
@@ -127,4 +127,24 @@ func (o *SnipcartOrder) TokenPNGBase64() (string, error) {
 	}
 
 	return base64.StdEncoding.EncodeToString(img), nil
+}
+
+func (s *SnipcartProvider) UpdateOrder(order *SnipcartOrder) (*SnipcartOrder, error) {
+	response, err := helper.Put(orderUri+"/"+order.Token, "Basic", s.AuthBase64, *order)
+	if err != nil {
+		return nil, err
+	}
+	if response.StatusCode < 200 && response.StatusCode >= 300 {
+		return nil, fmt.Errorf("unexpected response received: %s", response.Status)
+	}
+
+	defer response.Body.Close()
+
+	var responseOrder SnipcartOrder
+	err = json.NewDecoder(response.Body).Decode(&responseOrder)
+	if err != nil {
+		return nil, err
+	}
+
+	return &responseOrder, nil
 }
