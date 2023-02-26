@@ -30,12 +30,12 @@ type SnipcartItem struct {
 	UUID             string  `json:"uniqueId"`
 	ID               string  `json:"id"`
 	Name             string  `json:"name"`
-	Quantity         float64 `json:"quantity"`
+	Quantity         int     `json:"quantity"`
 	TotalWeight      float64 `json:"totalWeight,omitempty"`
 	CustomFieldsJSON string  `json:"customFieldsJson"`
-	Length           string  `json:"length,omitempty"`
-	Width            string  `json:"width,omitempty"`
-	Height           string  `json:"height,omitempty"`
+	Length           float64 `json:"length,omitempty"`
+	Width            float64 `json:"width,omitempty"`
+	Height           float64 `json:"height,omitempty"`
 	Weight           float64 `json:"weight,omitempty"`
 	Shippable        bool    `json:"shippable,omitempty"`
 }
