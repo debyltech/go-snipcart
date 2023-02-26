@@ -67,6 +67,26 @@ func NewSnipcartProvider(snipcartApiKey string) SnipcartProvider {
 	}
 }
 
+func (s *SnipcartProvider) GetOrder(token string) (*SnipcartOrder, error) {
+	response, err := helper.Get(orderUri+"/"+token, "Basic", s.AuthBase64, nil)
+	if err != nil {
+		return nil, err
+	}
+	if response.Status != "200 OK" {
+		return nil, fmt.Errorf("unexpected response received: %s", response.Status)
+	}
+
+	defer response.Body.Close()
+
+	var order SnipcartOrder
+	err = json.NewDecoder(response.Body).Decode(&order)
+	if err != nil {
+		return nil, err
+	}
+
+	return &order, nil
+}
+
 func (s *SnipcartProvider) GetOrders(queries map[string]string) (*SnipcartOrders, error) {
 	response, err := helper.Get(orderUri, "Basic", s.AuthBase64, queries)
 	if err != nil {
