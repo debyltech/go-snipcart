@@ -37,6 +37,7 @@ type SnipcartItem struct {
 	Name         string                `json:"name"`
 	Quantity     int                   `json:"quantity"`
 	TotalWeight  float64               `json:"totalWeight,omitempty"`
+	TotalPrice   string                `json:"totalPrice,omitempty"`
 	CustomFields []SnipcartCustomField `json:"customFields"`
 	Length       float64               `json:"length,omitempty"`
 	Width        float64               `json:"width,omitempty"`
