@@ -20,7 +20,7 @@ var (
 	orderUri = apiUri + ordersPath
 )
 
-type SnipcartProvider struct {
+type Client struct {
 	SnipcartKey string
 	AuthBase64  string
 	Limit       int
@@ -81,14 +81,14 @@ type SnipcartOrders struct {
 	Items      []SnipcartOrder
 }
 
-func NewSnipcartProvider(snipcartApiKey string) SnipcartProvider {
-	return SnipcartProvider{
+func NewClient(snipcartApiKey string) Client {
+	return Client{
 		SnipcartKey: snipcartApiKey,
 		AuthBase64:  base64.StdEncoding.EncodeToString([]byte(snipcartApiKey + ":")),
 	}
 }
 
-func (s *SnipcartProvider) GetOrder(token string) (*SnipcartOrder, error) {
+func (s *Client) GetOrder(token string) (*SnipcartOrder, error) {
 	response, err := helper.Get(orderUri+"/"+token, "Basic", s.AuthBase64, nil)
 	if err != nil {
 		return nil, err
@@ -108,7 +108,7 @@ func (s *SnipcartProvider) GetOrder(token string) (*SnipcartOrder, error) {
 	return &order, nil
 }
 
-func (s *SnipcartProvider) GetOrders(queries map[string]string) (*SnipcartOrders, error) {
+func (s *Client) GetOrders(queries map[string]string) (*SnipcartOrders, error) {
 	response, err := helper.Get(orderUri, "Basic", s.AuthBase64, queries)
 	if err != nil {
 		return nil, err
@@ -128,7 +128,7 @@ func (s *SnipcartProvider) GetOrders(queries map[string]string) (*SnipcartOrders
 	return &orders, nil
 }
 
-func (s *SnipcartProvider) GetOrdersByStatus(status OrderStatus) (*SnipcartOrders, error) {
+func (s *Client) GetOrdersByStatus(status OrderStatus) (*SnipcartOrders, error) {
 	if status == "" {
 		return nil, errors.New("status is not set")
 	}
@@ -145,7 +145,7 @@ func (o *SnipcartOrder) TokenPNGBase64() (string, error) {
 	return base64.StdEncoding.EncodeToString(img), nil
 }
 
-func (s *SnipcartProvider) UpdateOrder(token string, orderUpdate *SnipcartOrderUpdate) (*SnipcartOrder, error) {
+func (s *Client) UpdateOrder(token string, orderUpdate *SnipcartOrderUpdate) (*SnipcartOrder, error) {
 	response, err := helper.Put(orderUri+"/"+token, "Basic", s.AuthBase64, orderUpdate)
 	if err != nil {
 		return nil, err

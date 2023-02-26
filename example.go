@@ -15,9 +15,9 @@ func main() {
 		log.Fatal("missing -key flag")
 	}
 
-	snipcartProvider := snipcart.NewSnipcartProvider(*snipcartApiKey)
+	Client := snipcart.NewClient(*snipcartApiKey)
 
-	response, err := snipcartProvider.GetOrdersByStatus(snipcart.Processed)
+	response, err := Client.GetOrdersByStatus(snipcart.Processed)
 	if err != nil {
 		log.Fatal(err)
 	}

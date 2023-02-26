@@ -15,13 +15,13 @@ func main() {
 		log.Fatal("missing -key flag")
 	}
 
-	snipcartProvider := snipcart.NewSnipcartProvider(*snipcartApiKey)
+	Client := snipcart.NewClient(*snipcartApiKey)
 
 	updateOrder := snipcart.SnipcartOrderUpdate{
 		Status: snipcart.Delivered,
 	}
 
-	response, err := snipcartProvider.UpdateOrder("b35990df-c0ca-4014-94de-1caa7bd7bb51", &updateOrder)
+	response, err := Client.UpdateOrder("b35990df-c0ca-4014-94de-1caa7bd7bb51", &updateOrder)
 	if err != nil {
 		log.Fatal(err)
 	}
