@@ -56,7 +56,7 @@ type SnipcartOrder struct {
 	Phone          string         `json:"shippingAddressPhone"`
 	TrackingNumber string         `json:"trackingNumber"`
 	TrackingUrl    string         `json:"trackingUrl"`
-	ShippingCost   string         `json:"shippingFees"`
+	ShippingCost   float64        `json:"shippingFees"`
 	Items          []SnipcartItem `json:"items"`
 }
 
