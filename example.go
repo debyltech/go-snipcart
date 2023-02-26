@@ -7,10 +7,6 @@ import (
 	"github.com/debyltech/go-snipcart/snipcart"
 )
 
-const (
-	configFile = "config.json"
-)
-
 func main() {
 	snipcartApiKey := flag.String("key", "", "Snipcart API Key")
 	flag.Parse()

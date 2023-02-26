@@ -1,7 +1,6 @@
 package snipcart
 
 import (
-	"bytes"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
@@ -62,7 +61,6 @@ type SnipcartOrder struct {
 }
 
 type SnipcartOrderUpdate struct {
-	Token          string      `json:"token"`
 	Status         OrderStatus `json:"status"`
 	PaymentStatus  string      `json:"paymentStatus,omitempty"`
 	TrackingNumber string      `json:"trackingNumber,omitempty"`
@@ -139,18 +137,15 @@ func (o *SnipcartOrder) TokenPNGBase64() (string, error) {
 	return base64.StdEncoding.EncodeToString(img), nil
 }
 
-func (s *SnipcartProvider) UpdateOrder(orderUpdate *SnipcartOrderUpdate) (*SnipcartOrder, error) {
-	updateJson, err := json.Marshal(orderUpdate)
-	if err != nil {
-		return nil, err
-	}
-	response, err := helper.Put(orderUri+"/"+orderUpdate.Token, "Basic", s.AuthBase64, bytes.NewBuffer(updateJson))
+func (s *SnipcartProvider) UpdateOrder(token string, orderUpdate *SnipcartOrderUpdate) (*SnipcartOrder, error) {
+	response, err := helper.Put(orderUri+"/"+token, "Basic", s.AuthBase64, orderUpdate)
 	if err != nil {
 		return nil, err
 	}
 	if response.StatusCode < 200 && response.StatusCode >= 300 {
 		return nil, fmt.Errorf("unexpected response received: %s", response.Status)
 	}
+	fmt.Println(response.Status)
 
 	defer response.Body.Close()
 
