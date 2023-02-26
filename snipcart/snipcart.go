@@ -37,7 +37,7 @@ type SnipcartItem struct {
 	Name         string                `json:"name"`
 	Quantity     int                   `json:"quantity"`
 	TotalWeight  float64               `json:"totalWeight,omitempty"`
-	TotalPrice   string                `json:"totalPrice,omitempty"`
+	TotalPrice   float64               `json:"totalPrice,omitempty"`
 	CustomFields []SnipcartCustomField `json:"customFields"`
 	Length       float64               `json:"length,omitempty"`
 	Width        float64               `json:"width,omitempty"`
@@ -49,8 +49,8 @@ type SnipcartItem struct {
 type SnipcartOrder struct {
 	Token          string         `json:"token"`
 	Invoice        string         `json:"invoiceNumber"`
-	Subtotal       string         `json:"subtotal,omitempty"`
-	Total          string         `json:"grandTotal,omitempty"`
+	Subtotal       float64        `json:"subtotal,omitempty"`
+	Total          float64        `json:"grandTotal,omitempty"`
 	Status         string         `json:"status"`
 	TotalWeight    float64        `json:"totalWeight"`
 	Email          string         `json:"email"`
