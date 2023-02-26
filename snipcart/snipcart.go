@@ -26,18 +26,23 @@ type SnipcartProvider struct {
 	Limit       int
 }
 
+type SnipcartCustomField struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
 type SnipcartItem struct {
-	UUID             string  `json:"uniqueId"`
-	ID               string  `json:"id"`
-	Name             string  `json:"name"`
-	Quantity         int     `json:"quantity"`
-	TotalWeight      float64 `json:"totalWeight,omitempty"`
-	CustomFieldsJSON string  `json:"customFieldsJson"`
-	Length           float64 `json:"length,omitempty"`
-	Width            float64 `json:"width,omitempty"`
-	Height           float64 `json:"height,omitempty"`
-	Weight           float64 `json:"weight,omitempty"`
-	Shippable        bool    `json:"shippable,omitempty"`
+	UUID         string                `json:"uniqueId"`
+	ID           string                `json:"id"`
+	Name         string                `json:"name"`
+	Quantity     int                   `json:"quantity"`
+	TotalWeight  float64               `json:"totalWeight,omitempty"`
+	CustomFields []SnipcartCustomField `json:"customFields"`
+	Length       float64               `json:"length,omitempty"`
+	Width        float64               `json:"width,omitempty"`
+	Height       float64               `json:"height,omitempty"`
+	Weight       float64               `json:"weight,omitempty"`
+	Shippable    bool                  `json:"shippable,omitempty"`
 }
 
 type SnipcartOrder struct {
