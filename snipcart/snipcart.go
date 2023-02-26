@@ -36,7 +36,7 @@ type SnipcartItem struct {
 	Length           string  `json:"length,omitempty"`
 	Width            string  `json:"width,omitempty"`
 	Height           string  `json:"height,omitempty"`
-	Weight           string  `json:"weight,omitempty"`
+	Weight           float64 `json:"weight,omitempty"`
 	Shippable        bool    `json:"shippable,omitempty"`
 }
 
