@@ -60,6 +60,15 @@ type SnipcartOrder struct {
 	Items          []SnipcartItem `json:"items"`
 }
 
+type SnipcartOrderUpdate struct {
+	Token          string      `json:"token"`
+	Status         OrderStatus `json:"status"`
+	PaymentStatus  string      `json:"paymentStatus,omitempty"`
+	TrackingNumber string      `json:"trackingNumber,omitempty"`
+	TrackingUrl    string      `json:"trackingUrl,omitempty"`
+	Metadata       any         `json:"metadata,omitempty"`
+}
+
 type SnipcartOrders struct {
 	TotalItems int
 	Items      []SnipcartOrder
@@ -129,8 +138,8 @@ func (o *SnipcartOrder) TokenPNGBase64() (string, error) {
 	return base64.StdEncoding.EncodeToString(img), nil
 }
 
-func (s *SnipcartProvider) UpdateOrder(order *SnipcartOrder) (*SnipcartOrder, error) {
-	response, err := helper.Put(orderUri+"/"+order.Token, "Basic", s.AuthBase64, order)
+func (s *SnipcartProvider) UpdateOrder(orderUpdate *SnipcartOrderUpdate) (*SnipcartOrder, error) {
+	response, err := helper.Put(orderUri+"/"+orderUpdate.Token, "Basic", s.AuthBase64, orderUpdate)
 	if err != nil {
 		return nil, err
 	}
