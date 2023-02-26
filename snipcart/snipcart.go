@@ -31,9 +31,13 @@ type SnipcartItem struct {
 	ID               string  `json:"id"`
 	Name             string  `json:"name"`
 	Quantity         float64 `json:"quantity"`
-	Weight           string  `json:"weight"`
-	TotalWeight      float64 `json:"totalWeight"`
+	TotalWeight      float64 `json:"totalWeight,omitempty"`
 	CustomFieldsJSON string  `json:"customFieldsJson"`
+	Length           string  `json:"length,omitempty"`
+	Width            string  `json:"width,omitempty"`
+	Height           string  `json:"height,omitempty"`
+	Weight           string  `json:"weight,omitempty"`
+	Shippable        bool    `json:"shippable,omitempty"`
 }
 
 type SnipcartOrder struct {
