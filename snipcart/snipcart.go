@@ -139,7 +139,11 @@ func (o *SnipcartOrder) TokenPNGBase64() (string, error) {
 }
 
 func (s *SnipcartProvider) UpdateOrder(orderUpdate *SnipcartOrderUpdate) (*SnipcartOrder, error) {
-	response, err := helper.Put(orderUri+"/"+orderUpdate.Token, "Basic", s.AuthBase64, orderUpdate)
+	updateJson, err := json.Marshal(orderUpdate)
+	if err != nil {
+		return nil, err
+	}
+	response, err := helper.Put(orderUri+"/"+orderUpdate.Token, "Basic", s.AuthBase64, updateJson)
 	if err != nil {
 		return nil, err
 	}
