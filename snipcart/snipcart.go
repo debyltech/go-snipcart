@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	helper "github.com/debyltech/go-helpers"
+	helper "github.com/debyltech/go-helpers/json"
 	"github.com/skip2/go-qrcode"
 )
 
