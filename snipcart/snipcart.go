@@ -130,7 +130,7 @@ func (o *SnipcartOrder) TokenPNGBase64() (string, error) {
 }
 
 func (s *SnipcartProvider) UpdateOrder(order *SnipcartOrder) (*SnipcartOrder, error) {
-	response, err := helper.Put(orderUri+"/"+order.Token, "Basic", s.AuthBase64, *order)
+	response, err := helper.Put(orderUri+"/"+order.Token, "Basic", s.AuthBase64, order)
 	if err != nil {
 		return nil, err
 	}
