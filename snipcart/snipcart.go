@@ -1,6 +1,7 @@
 package snipcart
 
 import (
+	"bytes"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
@@ -143,7 +144,7 @@ func (s *SnipcartProvider) UpdateOrder(orderUpdate *SnipcartOrderUpdate) (*Snipc
 	if err != nil {
 		return nil, err
 	}
-	response, err := helper.Put(orderUri+"/"+orderUpdate.Token, "Basic", s.AuthBase64, updateJson)
+	response, err := helper.Put(orderUri+"/"+orderUpdate.Token, "Basic", s.AuthBase64, bytes.NewBuffer(updateJson))
 	if err != nil {
 		return nil, err
 	}
