@@ -49,6 +49,8 @@ type SnipcartItem struct {
 type SnipcartOrder struct {
 	Token          string         `json:"token"`
 	Invoice        string         `json:"invoiceNumber"`
+	Subtotal       string         `json:"subtotal,omitempty"`
+	Total          string         `json:"grandTotal,omitempty"`
 	Status         string         `json:"status"`
 	TotalWeight    float64        `json:"totalWeight"`
 	Email          string         `json:"email"`
