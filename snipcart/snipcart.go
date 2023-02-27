@@ -50,18 +50,20 @@ type SnipcartOrder struct {
 	Token          string         `json:"token"`
 	Invoice        string         `json:"invoiceNumber"`
 	Subtotal       float64        `json:"subtotal,omitempty"`
+	Currency       string         `json:"currency,omitempty"`
 	Total          float64        `json:"grandTotal,omitempty"`
 	Status         string         `json:"status"`
 	TotalWeight    float64        `json:"totalWeight"`
-	Email          string         `json:"email"`
 	Name           string         `json:"shippingAddressName"`
+	Company        string         `json:"shippingAddressCompanyName"`
 	Address1       string         `json:"shippingAddressAddress1"`
 	Address2       string         `json:"shippingAddressAddress2"`
 	City           string         `json:"shippingAddressCity"`
 	Province       string         `json:"shippingAddressProvince"`
 	Country        string         `json:"shippingAddressCountry"`
 	PostalCode     string         `json:"shippingAddressPostalCode"`
-	Phone          string         `json:"shippingAddressPhone"`
+	Phone          string         `json:"shippingAddressPhone,omitempty"`
+	Email          string         `json:"email,omitempty"`
 	TrackingNumber string         `json:"trackingNumber"`
 	TrackingUrl    string         `json:"trackingUrl"`
 	ShippingCost   float64        `json:"shippingFees"`
