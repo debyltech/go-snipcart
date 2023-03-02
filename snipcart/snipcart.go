@@ -68,6 +68,7 @@ type SnipcartOrder struct {
 	TrackingUrl    string         `json:"trackingUrl"`
 	ShippingCost   float64        `json:"shippingFees"`
 	Items          []SnipcartItem `json:"items"`
+	Metadata       any            `json:"metadata"`
 }
 
 type SnipcartOrderUpdate struct {
