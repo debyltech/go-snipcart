@@ -11,7 +11,7 @@ type SnipcartShippingAddress struct {
 	City        string `json:"city"`
 	Country     string `json:"country"`
 	PostalCode  string `json:"postalCode"`
-	State       string `json:"province"`
+	Province    string `json:"province"`
 	Phone       string `json:"phone"`
 	VatNumber   string `json:"vatNumber,omitempty"`
 }
