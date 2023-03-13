@@ -22,7 +22,7 @@ type SnipcartOrderEventContent struct {
 	Status          string                  `json:"status"`
 	PaymentStatus   string                  `json:"paymentStatus"`
 	Email           string                  `json:"email"`
-	Curreny         string                  `json:"currency"`
+	Currency        string                  `json:"currency"`
 	TotalWeight     float64                 `json:"totalWeight"`
 	Items           []SnipcartItem          `json:"items"`
 	ShippingAddress SnipcartShippingAddress `json:"shippingAddress"`
