@@ -18,10 +18,13 @@ type SnipcartShippingAddress struct {
 
 type SnipcartOrderEventContent struct {
 	Token           string                  `json:"token"`
+	Invoice         string                  `json:"invoiceNumber"`
 	Status          string                  `json:"status"`
 	PaymentStatus   string                  `json:"paymentStatus"`
 	Email           string                  `json:"email"`
 	Curreny         string                  `json:"currency"`
+	TotalWeight     float64                 `json:"totalWeight"`
 	Items           []SnipcartItem          `json:"items"`
 	ShippingAddress SnipcartShippingAddress `json:"shippingAddress"`
+	Metadata        string                  `json:"metadata"`
 }
