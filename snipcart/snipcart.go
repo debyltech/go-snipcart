@@ -47,28 +47,31 @@ type SnipcartItem struct {
 }
 
 type SnipcartOrder struct {
-	Token          string         `json:"token"`
-	Invoice        string         `json:"invoiceNumber"`
-	Subtotal       float64        `json:"subtotal,omitempty"`
-	Currency       string         `json:"currency,omitempty"`
-	Total          float64        `json:"grandTotal,omitempty"`
-	Status         string         `json:"status"`
-	TotalWeight    float64        `json:"totalWeight"`
-	Name           string         `json:"shippingAddressName"`
-	Company        string         `json:"shippingAddressCompanyName"`
-	Address1       string         `json:"shippingAddressAddress1"`
-	Address2       string         `json:"shippingAddressAddress2"`
-	City           string         `json:"shippingAddressCity"`
-	Province       string         `json:"shippingAddressProvince"`
-	Country        string         `json:"shippingAddressCountry"`
-	PostalCode     string         `json:"shippingAddressPostalCode"`
-	Phone          string         `json:"shippingAddressPhone,omitempty"`
-	Email          string         `json:"email,omitempty"`
-	TrackingNumber string         `json:"trackingNumber"`
-	TrackingUrl    string         `json:"trackingUrl"`
-	ShippingCost   float64        `json:"shippingFees"`
-	Items          []SnipcartItem `json:"items"`
-	Metadata       any            `json:"metadata"`
+	Token            string         `json:"token"`
+	Invoice          string         `json:"invoiceNumber"`
+	Subtotal         float64        `json:"subtotal,omitempty"`
+	Currency         string         `json:"currency,omitempty"`
+	Total            float64        `json:"grandTotal,omitempty"`
+	Status           string         `json:"status"`
+	TotalWeight      float64        `json:"totalWeight"`
+	Name             string         `json:"shippingAddressName"`
+	Company          string         `json:"shippingAddressCompanyName"`
+	Address1         string         `json:"shippingAddressAddress1"`
+	Address2         string         `json:"shippingAddressAddress2"`
+	City             string         `json:"shippingAddressCity"`
+	Province         string         `json:"shippingAddressProvince"`
+	Country          string         `json:"shippingAddressCountry"`
+	PostalCode       string         `json:"shippingAddressPostalCode"`
+	Phone            string         `json:"shippingAddressPhone,omitempty"`
+	Email            string         `json:"email,omitempty"`
+	TrackingNumber   string         `json:"trackingNumber"`
+	TrackingUrl      string         `json:"trackingUrl"`
+	ShippingCost     float64        `json:"shippingFees"`
+	ShippingProvider string         `json:"shippingProvider,omitempty"`
+	ShippingMethod   string         `json:"shippingMethod,omitempty"`
+	ShippingRate     string         `json:"shippingRateUserDefinedId,omitempty"`
+	Items            []SnipcartItem `json:"items"`
+	Metadata         any            `json:"metadata"`
 }
 
 type SnipcartOrderUpdate struct {
