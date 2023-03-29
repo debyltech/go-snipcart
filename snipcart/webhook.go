@@ -15,16 +15,3 @@ type SnipcartShippingAddress struct {
 	Phone       string `json:"phone"`
 	VatNumber   string `json:"vatNumber,omitempty"`
 }
-
-type SnipcartOrderEventContent struct {
-	Token           string                  `json:"token"`
-	Invoice         string                  `json:"invoiceNumber"`
-	Status          string                  `json:"status"`
-	PaymentStatus   string                  `json:"paymentStatus"`
-	Email           string                  `json:"email"`
-	Currency        string                  `json:"currency"`
-	TotalWeight     float64                 `json:"totalWeight"`
-	Items           []SnipcartItem          `json:"items"`
-	ShippingAddress SnipcartShippingAddress `json:"shippingAddress"`
-	Metadata        string                  `json:"metadata"`
-}
