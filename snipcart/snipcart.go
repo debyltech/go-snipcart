@@ -70,7 +70,7 @@ type SnipcartOrder struct {
 	ShippingCost     float64                 `json:"shippingFees"`
 	ShippingProvider string                  `json:"shippingProvider,omitempty"`
 	ShippingMethod   string                  `json:"shippingMethod,omitempty"`
-	ShippingRate     string                  `json:"shippingRateUserDefinedId,omitempty"`
+	ShippingRateId   string                  `json:"shippingRateUserDefinedId,omitempty"`
 	Items            []SnipcartItem          `json:"items"`
 	Metadata         any                     `json:"metadata"`
 }
