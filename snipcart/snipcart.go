@@ -88,6 +88,13 @@ type SnipcartOrders struct {
 	Items      []SnipcartOrder
 }
 
+type SnipcartTax struct {
+	Name             string  `json:"name"`
+	Amount           float64 `json:"amount"`
+	NumberForInvoice string  `json:"numberForInvoice"`
+	Rate             float64 `json:"rate"`
+}
+
 func NewClient(snipcartApiKey string) Client {
 	return Client{
 		SnipcartKey: snipcartApiKey,

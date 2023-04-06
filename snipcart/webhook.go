@@ -15,3 +15,7 @@ type SnipcartShippingAddress struct {
 	Phone       string `json:"phone"`
 	VatNumber   string `json:"vatNumber,omitempty"`
 }
+
+type SnipcartWebhookTaxResponse struct {
+	Taxes []SnipcartTax `json:"taxes"`
+}
