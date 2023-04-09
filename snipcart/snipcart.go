@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"time"
 
 	helper "github.com/debyltech/go-helpers/json"
 	"github.com/skip2/go-qrcode"
@@ -48,6 +49,8 @@ type SnipcartItem struct {
 
 type SnipcartOrder struct {
 	Token            string                  `json:"token"`
+	Created          time.Time               `json:"creationDate"`
+	Modified         time.Time               `json:"modificationDate"`
 	Invoice          string                  `json:"invoiceNumber"`
 	Subtotal         float64                 `json:"subtotal,omitempty"`
 	Currency         string                  `json:"currency,omitempty"`
