@@ -98,6 +98,23 @@ type SnipcartTax struct {
 	Rate             float64 `json:"rate"`
 }
 
+type SnipcartNotification struct {
+	Type           NotificationType `json:"type"`
+	DeliveryMethod string           `json:"deliveryMethod"`
+	Message        string           `json:"message,omitempty"`
+}
+
+type SnipcartNotificationResponse struct {
+	Id             string           `json:"id"`
+	Created        time.Time        `json:"creationDate"`
+	Type           NotificationType `json:"type"`
+	DeliveryMethod string           `json:"deliveryMethod"`
+	Body           string           `json:"body"`
+	Message        string           `json:"message"`
+	Subject        string           `json:"subject"`
+	SentOn         time.Time        `json:"sentOn"`
+}
+
 func NewClient(snipcartApiKey string) Client {
 	return Client{
 		SnipcartKey: snipcartApiKey,
@@ -170,7 +187,6 @@ func (s *Client) UpdateOrder(token string, orderUpdate *SnipcartOrderUpdate) (*S
 	if response.StatusCode < 200 && response.StatusCode >= 300 {
 		return nil, fmt.Errorf("unexpected response received: %s", response.Status)
 	}
-	fmt.Println(response.Status)
 
 	defer response.Body.Close()
 
@@ -181,4 +197,21 @@ func (s *Client) UpdateOrder(token string, orderUpdate *SnipcartOrderUpdate) (*S
 	}
 
 	return &responseOrder, nil
+}
+
+func (s *Client) SendNotification(token string, notification *SnipcartNotification) (*SnipcartNotificationResponse, error) {
+	response, err := helper.Post(orderUri+"/"+token+"/notifications", "Basic", s.AuthBase64, notification)
+	if err != nil {
+		return nil, err
+	}
+
+	defer response.Body.Close()
+
+	var responseNotification SnipcartNotificationResponse
+	err = json.NewDecoder(response.Body).Decode(&responseNotification)
+	if err != nil {
+		return nil, err
+	}
+
+	return &responseNotification, nil
 }
