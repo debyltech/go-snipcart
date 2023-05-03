@@ -119,8 +119,8 @@ type SnipcartNotificationResponse struct {
 	SentOn         time.Time        `json:"sentOn"`
 }
 
-func NewClient(snipcartApiKey string) Client {
-	return Client{
+func NewClient(snipcartApiKey string) *Client {
+	return &Client{
 		SnipcartKey: snipcartApiKey,
 		AuthBase64:  base64.StdEncoding.EncodeToString([]byte(snipcartApiKey + ":")),
 	}
