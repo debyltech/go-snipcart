@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 	"time"
 
 	helper "github.com/debyltech/go-helpers/json"
@@ -12,13 +13,15 @@ import (
 )
 
 const (
-	defaultLimit = 50
-	apiUri       = "https://app.snipcart.com"
-	ordersPath   = "/api/orders"
+	defaultLimit   = 50
+	apiUri         = "https://app.snipcart.com"
+	ordersPath     = "/api/orders"
+	validationPath = "/api/requestvalidation/"
 )
 
 var (
-	orderUri = apiUri + ordersPath
+	orderUri      = apiUri + ordersPath
+	validationUri = apiUri + validationPath
 )
 
 type Client struct {
@@ -83,6 +86,7 @@ type SnipcartOrderUpdate struct {
 	PaymentStatus  string      `json:"paymentStatus,omitempty"`
 	TrackingNumber string      `json:"trackingNumber,omitempty"`
 	TrackingUrl    string      `json:"trackingUrl,omitempty"`
+	ShippingRateId string      `json:"shippingRateUserDefinedId,omitempty"`
 	Metadata       any         `json:"metadata,omitempty"`
 }
 
@@ -214,4 +218,28 @@ func (s *Client) SendNotification(token string, notification *SnipcartNotificati
 	}
 
 	return &responseNotification, nil
+}
+
+func (s *Client) ValidateWebhook(token string) error {
+	validateRequest, err := http.NewRequest("GET", validationUri+token, nil)
+	if err != nil {
+		return err
+	}
+
+	client := &http.Client{}
+
+	auth := base64.StdEncoding.EncodeToString([]byte(s.SnipcartKey + ":"))
+	validateRequest.Header.Set("Authorization", fmt.Sprintf("Basic %s", auth))
+	validateRequest.Header.Set("Accept", "application/json")
+
+	validateResponse, err := client.Do(validateRequest)
+	if err != nil {
+		return fmt.Errorf("error validating webhook: %s", err.Error())
+	}
+
+	if validateResponse.StatusCode < 200 || validateResponse.StatusCode >= 300 {
+		return fmt.Errorf("non-2XX status code for validating webhook: %d", validateResponse.StatusCode)
+	}
+
+	return nil
 }
