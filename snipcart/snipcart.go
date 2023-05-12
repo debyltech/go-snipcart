@@ -297,7 +297,7 @@ func (s *Client) GetProducts(queries map[string]string) (*SnipcartProductsRespon
 	return &products, nil
 }
 
-func (s *Client) GetProductById(id string) (*SnipcartProduct, error) {
+func (s *Client) GetProductById(id string) (*SnipcartProductsResponse, error) {
 	response, err := helper.Get(productsUri, "Basic", s.AuthBase64, map[string]string{"userDefinedId": id})
 	if err != nil {
 		return nil, err
@@ -308,11 +308,11 @@ func (s *Client) GetProductById(id string) (*SnipcartProduct, error) {
 
 	defer response.Body.Close()
 
-	var product SnipcartProduct
-	err = json.NewDecoder(response.Body).Decode(&product)
+	var products SnipcartProductsResponse
+	err = json.NewDecoder(response.Body).Decode(&products)
 	if err != nil {
 		return nil, err
 	}
 
-	return &product, nil
+	return &products, nil
 }
