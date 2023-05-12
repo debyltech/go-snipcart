@@ -297,7 +297,7 @@ func (s *Client) GetProducts(queries map[string]string) (*SnipcartProductsRespon
 	return &products, nil
 }
 
-func (s *Client) GetProductById(id string) (*SnipcartProductsResponse, error) {
+func (s *Client) GetProductById(id string) (*SnipcartProduct, error) {
 	response, err := helper.Get(productsUri, "Basic", s.AuthBase64, map[string]string{"userDefinedId": id})
 	if err != nil {
 		return nil, err
@@ -314,5 +314,9 @@ func (s *Client) GetProductById(id string) (*SnipcartProductsResponse, error) {
 		return nil, err
 	}
 
-	return &products, nil
+	if len(products.Items) < 1 {
+		return nil, fmt.Errorf("no products with id '%s'", id)
+	}
+
+	return &products.Items[0], nil
 }
