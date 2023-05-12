@@ -135,7 +135,7 @@ type SnipcartProductCustomField struct {
 	Options      string   `json:"options"`
 	Required     bool     `json:"required"`
 	Value        string   `json:"value"`
-	Operation    int      `json:"operation"`
+	Operation    float64  `json:"operation"`
 	OptionsArray []string `json:"optionsArray"`
 }
 
