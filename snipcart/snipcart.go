@@ -16,11 +16,13 @@ const (
 	defaultLimit   = 50
 	apiUri         = "https://app.snipcart.com"
 	ordersPath     = "/api/orders"
+	productsPath   = "/api/products"
 	validationPath = "/api/requestvalidation/"
 )
 
 var (
 	orderUri      = apiUri + ordersPath
+	productsUri   = apiUri + productsPath
 	validationUri = apiUri + validationPath
 )
 
@@ -117,6 +119,22 @@ type SnipcartNotificationResponse struct {
 	Message        string           `json:"message"`
 	Subject        string           `json:"subject"`
 	SentOn         time.Time        `json:"sentOn"`
+}
+
+type SnipcartProductVariant struct {
+	Stock          int   `json:"stock"`
+	Variation      []any `json:"variation"`
+	AllowBackorder bool  `json:"allowOutOfStockPurchases"`
+}
+
+type SnipcartProductsResponse struct {
+	Token          string                   `json:"id"`
+	Id             string                   `json:"userDefinedId"`
+	Name           string                   `json:"name"`
+	Stock          int                      `json:"stock"`
+	TotalStock     int                      `json:"totalStock"`
+	AllowBackorder bool                     `json:"allowOutOfStockPurchases"`
+	Variants       []SnipcartProductVariant `json:"variants"`
 }
 
 func NewClient(snipcartApiKey string) *Client {
@@ -242,4 +260,24 @@ func (s *Client) ValidateWebhook(token string) error {
 	}
 
 	return nil
+}
+
+func (s *Client) GetProducts(queries map[string]string) (*SnipcartProductsResponse, error) {
+	response, err := helper.Get(productsUri, "Basic", s.AuthBase64, queries)
+	if err != nil {
+		return nil, err
+	}
+	if response.StatusCode < 200 && response.StatusCode >= 300 {
+		return nil, fmt.Errorf("unexpected response received: %s", response.Status)
+	}
+
+	defer response.Body.Close()
+
+	var products SnipcartProductsResponse
+	err = json.NewDecoder(response.Body).Decode(&products)
+	if err != nil {
+		return nil, err
+	}
+
+	return &products, nil
 }
