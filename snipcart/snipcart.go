@@ -127,14 +127,27 @@ type SnipcartProductVariant struct {
 	AllowBackorder bool  `json:"allowOutOfStockPurchases"`
 }
 
+type SnipcartProductCustomField struct {
+	Name         string   `json:"name"`
+	Placeholder  string   `json:"placeholder"`
+	DisplayValue string   `json:"displayValue"`
+	Type         string   `json:"type"`
+	Options      string   `json:"options"`
+	Required     bool     `json:"required"`
+	Value        string   `json:"value"`
+	Operation    int      `json:"operation"`
+	OptionsArray []string `json:"optionsArray"`
+}
+
 type SnipcartProduct struct {
-	Token          string                   `json:"id"`
-	Id             string                   `json:"userDefinedId"`
-	Name           string                   `json:"name"`
-	Stock          int                      `json:"stock"`
-	TotalStock     int                      `json:"totalStock"`
-	AllowBackorder bool                     `json:"allowOutOfStockPurchases"`
-	Variants       []SnipcartProductVariant `json:"variants"`
+	Token          string                       `json:"id"`
+	Id             string                       `json:"userDefinedId"`
+	Name           string                       `json:"name"`
+	Stock          int                          `json:"stock"`
+	TotalStock     int                          `json:"totalStock"`
+	AllowBackorder bool                         `json:"allowOutOfStockPurchases"`
+	CustomFields   []SnipcartProductCustomField `json:"customFields"`
+	Variants       []SnipcartProductVariant     `json:"variants"`
 }
 
 type SnipcartProductsResponse struct {
