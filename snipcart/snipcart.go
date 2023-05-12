@@ -127,7 +127,7 @@ type SnipcartProductVariant struct {
 	AllowBackorder bool  `json:"allowOutOfStockPurchases"`
 }
 
-type SnipcartProductsResponse struct {
+type SnipcartProduct struct {
 	Token          string                   `json:"id"`
 	Id             string                   `json:"userDefinedId"`
 	Name           string                   `json:"name"`
@@ -135,6 +135,21 @@ type SnipcartProductsResponse struct {
 	TotalStock     int                      `json:"totalStock"`
 	AllowBackorder bool                     `json:"allowOutOfStockPurchases"`
 	Variants       []SnipcartProductVariant `json:"variants"`
+}
+
+type SnipcartProductsResponse struct {
+	Keywords      string            `json:"keywords"`
+	UserDefinedId string            `json:"userDefinedId"`
+	Archived      bool              `json:"archived"`
+	From          time.Time         `json:"from"`
+	To            time.Time         `json:"to"`
+	OrderBy       string            `json:"orderBy"`
+	Paginated     bool              `json:"hasMoreResults"`
+	TotalItems    int               `json:"totalItems"`
+	Offset        int               `json:"offset"`
+	Limit         int               `json:"limit"`
+	Sort          []any             `json:"sort"`
+	Items         []SnipcartProduct `json:"items"`
 }
 
 func NewClient(snipcartApiKey string) *Client {
@@ -280,4 +295,24 @@ func (s *Client) GetProducts(queries map[string]string) (*SnipcartProductsRespon
 	}
 
 	return &products, nil
+}
+
+func (s *Client) GetProductById(id string) (*SnipcartProduct, error) {
+	response, err := helper.Get(productsUri, "Basic", s.AuthBase64, map[string]string{"userDefinedId": id})
+	if err != nil {
+		return nil, err
+	}
+	if response.StatusCode < 200 && response.StatusCode >= 300 {
+		return nil, fmt.Errorf("unexpected response received: %s", response.Status)
+	}
+
+	defer response.Body.Close()
+
+	var product SnipcartProduct
+	err = json.NewDecoder(response.Body).Decode(&product)
+	if err != nil {
+		return nil, err
+	}
+
+	return &product, nil
 }
