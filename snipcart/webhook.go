@@ -6,6 +6,15 @@ import (
 	"net/http"
 )
 
+type ShippingError struct {
+	Key     string `json:"key"`
+	Message string `json:"message"`
+}
+
+type ShippingErrors struct {
+	Errors []ShippingError `json:"errors"`
+}
+
 type TaxShippingInfo struct {
 	Fees   float64 `json:"fees"`
 	Method string  `json:"method"`
