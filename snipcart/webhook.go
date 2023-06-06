@@ -4,7 +4,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"net/http"
-	"time"
 )
 
 type TaxShippingInfo struct {
@@ -13,8 +12,8 @@ type TaxShippingInfo struct {
 }
 
 type TaxContent struct {
-	Created              time.Time       `json:"creationDate"`
-	Modified             time.Time       `json:"modificationDate"`
+	Created              int             `json:"creationDate"`
+	Modified             int             `json:"modificationDate"`
 	Token                string          `json:"token"`
 	Email                string          `json:"email"`
 	ShipToBillingAddress bool            `json:"shipToBillingAddress"`
