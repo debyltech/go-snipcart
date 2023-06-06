@@ -38,6 +38,10 @@ type TaxContent struct {
 	Metadata             any             `json:"metadata"`
 }
 
+type TaxWebhook struct {
+	Content TaxContent `json:"content"`
+}
+
 type Tax struct {
 	Name             string  `json:"name"`
 	Amount           float64 `json:"amount"`
