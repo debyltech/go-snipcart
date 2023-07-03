@@ -54,6 +54,7 @@ type Order struct {
 	ShippingMethod   string    `json:"shippingMethod,omitempty"`
 	ShippingRateId   string    `json:"shippingRateUserDefinedId,omitempty"`
 	Items            []Item    `json:"items"`
+	Taxes            []Tax     `json:"taxes,omitempty"`
 	Metadata         any       `json:"metadata"`
 }
 
