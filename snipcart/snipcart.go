@@ -68,6 +68,8 @@ type OrderUpdate struct {
 
 type Orders struct {
 	TotalItems int
+	Offest     int
+	Limit      int
 	Items      []Order
 }
 
