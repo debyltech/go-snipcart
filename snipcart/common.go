@@ -37,9 +37,9 @@ type Client struct {
 }
 
 type CustomField struct {
-	Name     string   `json:"name"`
-	Value    string   `json:"value"`
-	Type     string   `json:"type,omitempty"`
-	Options  []string `json:"options,omitempty"`
-	Required bool     `json:"required"`
+	Name     string `json:"name"`
+	Value    string `json:"value"`
+	Type     string `json:"type,omitempty"`
+	Options  string `json:"options,omitempty"`
+	Required bool   `json:"required"`
 }
