@@ -37,6 +37,7 @@ type Order struct {
 	Token            string     `json:"token"`
 	Created          time.Time  `json:"creationDate"`
 	Modified         time.Time  `json:"modificationDate"`
+	Completed        time.Time  `json:"completionDate"`
 	Invoice          string     `json:"invoiceNumber"`
 	Subtotal         float64    `json:"subtotal,omitempty"`
 	Currency         string     `json:"currency,omitempty"`
