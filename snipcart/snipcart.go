@@ -43,6 +43,7 @@ type Order struct {
 	Currency         string     `json:"currency,omitempty"`
 	Total            float64    `json:"grandTotal,omitempty"`
 	TotalTaxable     float64    `json:"taxableTotal,omitempty"`
+	TotalTaxes       float64    `json:"taxesTotal,omitempty"`
 	Status           string     `json:"status"`
 	TotalWeight      float64    `json:"totalWeight"`
 	ShippingAddress  Address    `json:"shippingAddress,omitempty"`
