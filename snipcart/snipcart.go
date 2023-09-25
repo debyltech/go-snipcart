@@ -33,6 +33,23 @@ type OrderTax struct {
 	NumberForInvoice string  `json:"numberForInvoice"`
 }
 
+type OrderNotification struct {
+	Id             string           `json:"id"`
+	Created        time.Time        `json:"creationDate"`
+	Type           NotificationType `json:"type"`
+	DeliveryMethod string           `json:"deliveryMethod"`
+	Message        string           `json:"message,omitempty"`
+	SendDate       time.Time        `json:"sentOn,omitempty"`
+	Subject        string           `json:"subject,omitempty"`
+}
+
+type OrderNotifications struct {
+	TotalNotifications int                 `json:"totalItems"`
+	Offset             int                 `json:"offset"`
+	Limit              int                 `json:"limit"`
+	Notifications      []OrderNotification `json:"items"`
+}
+
 type Order struct {
 	Token            string     `json:"token"`
 	Created          time.Time  `json:"creationDate"`
@@ -170,6 +187,26 @@ func (s *Client) GetOrder(token string) (*Order, error) {
 	}
 
 	return &order, nil
+}
+
+func (s *Client) GetOrderNotifications(token string) (*OrderNotifications, error) {
+	response, err := helper.Get(orderUri+"/"+token+"/"+orderNotificationPath, "Basic", s.AuthBase64, nil)
+	if err != nil {
+		return nil, err
+	}
+	if response.StatusCode < 200 && response.StatusCode >= 300 {
+		return nil, fmt.Errorf("unexpected response received: %s", response.Status)
+	}
+
+	defer response.Body.Close()
+
+	var notifications OrderNotifications
+	err = json.NewDecoder(response.Body).Decode(&notifications)
+	if err != nil {
+		return nil, err
+	}
+
+	return &notifications, nil
 }
 
 func (s *Client) GetOrders(queries map[string]string) (*Orders, error) {

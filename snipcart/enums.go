@@ -5,16 +5,16 @@ type NotificationType string
 
 const (
 	Processed  OrderStatus = "Processed"
-	Disputed               = "Disputed"
-	Shipped                = "Shipped"
-	Delivered              = "Delivered"
-	Pending                = "Pending"
-	Cancelled              = "Cancelled"
-	Dispatched             = "Dispatched"
+	Disputed   OrderStatus = "Disputed"
+	Shipped    OrderStatus = "Shipped"
+	Delivered  OrderStatus = "Delivered"
+	Pending    OrderStatus = "Pending"
+	Cancelled  OrderStatus = "Cancelled"
+	Dispatched OrderStatus = "Dispatched"
 
 	Comment            NotificationType = "Comment"
-	OrderStatusChanged                  = "OrderStatusChanged"
-	OrderShipped                        = "OrderShipped"
-	TrackingNumber                      = "TrackingNumber"
-	Invoice                             = "Invice"
+	OrderStatusChanged NotificationType = "OrderStatusChanged"
+	OrderShipped       NotificationType = "OrderShipped"
+	TrackingNumber     NotificationType = "TrackingNumber"
+	Invoice            NotificationType = "Invice"
 )

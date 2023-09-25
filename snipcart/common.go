@@ -12,6 +12,8 @@ var (
 	orderUri      = apiUri + ordersPath
 	productsUri   = apiUri + productsPath
 	validationUri = apiUri + validationPath
+
+	orderNotificationPath = "notifications"
 )
 
 type Address struct {
