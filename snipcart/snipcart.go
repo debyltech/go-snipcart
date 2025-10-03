@@ -26,6 +26,29 @@ type Item struct {
 	Shippable    bool          `json:"shippable,omitempty"`
 }
 
+type Discount struct {
+	ID                       string   `json:"id"`
+	DiscountID               string   `json:"discountId"`
+	Name                     string   `json:"name"`
+	Code                     string   `json:"code,omitempty"`
+	Trigger                  string   `json:"trigger,omitempty"`
+	Type                     string   `json:"type,omitempty"`
+	Rate                     float64  `json:"rate,omitempty"`
+	Amount                   float64  `json:"amount,omitempty"`
+	AmountSaved              float64  `json:"amountSaved,omitempty"`
+	NormalizedRate           float64  `json:"normalizedRate,omitempty"`
+	Combinable               bool     `json:"combinable"`
+	HasSavedAmount           bool     `json:"hasSavedAmount"`
+	MaxDiscountsPerItem      *int     `json:"maxDiscountsPerItem,omitempty"`
+	TotalToReach             *float64 `json:"totalToReach,omitempty"`
+	ProductIds               string   `json:"productIds,omitempty"`
+	Categories               string   `json:"categories,omitempty"`
+	NumberOfUsages           int      `json:"numberOfUsages,omitempty"`
+	AppliesOnAllRecurring    bool     `json:"appliesOnAllRecurringOrders"`
+	CreationDate             string   `json:"creationDate,omitempty"`
+	ModificationDate         string   `json:"modificationDate,omitempty"`
+}
+
 type OrderTax struct {
 	Name             string  `json:"taxName"`
 	Rate             float64 `json:"taxRate"`
@@ -81,6 +104,9 @@ type Order struct {
 	ShippingProvider             string     `json:"shippingProvider,omitempty"`
 	ShippingMethod               string     `json:"shippingMethod,omitempty"`
 	ShippingRateId               string     `json:"shippingRateUserDefinedId,omitempty"`
+	Discounts                    []Discount `json:"discounts,omitempty"`
+	SavedAmount                  float64    `json:"savedAmount,omitempty"`
+	TotalRebateRate              float64    `json:"totalRebateRate,omitempty"`
 	Items                        []Item     `json:"items"`
 	Taxes                        []OrderTax `json:"taxes,omitempty"`
 	Metadata                     any        `json:"metadata"`
